@@ -9,7 +9,7 @@ public class ExerciseRunner {
 
 
     public <T> void checkTask(CustomList<T> customListForCheck, T testValue, T secondValue) {
-        int baseCounter = 9;
+        int baseCounter = 10;
         taskCounter = baseCounter;
         System.out.println("=======================================");
 
@@ -21,6 +21,7 @@ public class ExerciseRunner {
                 .checkRemove(customListForCheck, testValue, secondValue)
                 .checkGet(customListForCheck, testValue, secondValue)
                 .checkAddAll(customListForCheck, testValue)
+                .checkIterator(customListForCheck, testValue)
                 .showResult(baseCounter);
 
         System.out.println("=======================================");
@@ -49,6 +50,27 @@ public class ExerciseRunner {
                     %sTask failed %s""", ANSI_RED, ANSI_RESET);
         }
         System.out.println();
+    }
+
+    private <T> ExerciseRunner checkIterator(CustomList<T> customListForCheck, T item) {
+        boolean isItWorks = true;
+        try {
+            customListForCheck
+                    .add(item)
+                    .add(item)
+                    .add(item);
+
+            for (T element : customListForCheck) {
+                System.out.println(element);
+            }
+
+        } catch (Exception exception) {
+            isItWorks = false;
+        }
+
+        checkResult(isItWorks);
+
+        return this.removeAll(customListForCheck);
     }
 
     private <T> ExerciseRunner checkGet(CustomList<T> customListForCheck, T item, T secondItem) {
