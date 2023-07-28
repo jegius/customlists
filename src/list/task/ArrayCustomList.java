@@ -23,7 +23,17 @@ public class ArrayCustomList<T> implements CustomList<T> {
 
     @Override
     public CustomList<T> add(T element, int index) {
-        return null;
+        if (size == myArray.length) {
+            T[] newArray = (T[]) new Object[myArray.length * 2];
+            System.arraycopy(myArray, 0, newArray, 0, size);
+            myArray = newArray;
+        }
+        for (int i = size - 1; i >= index; i--) {
+            myArray[i + 1] = myArray[i];
+        }
+        myArray[index] = element;
+        size++;
+        return this;
     }
 
     @Override
@@ -53,7 +63,7 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public int size() {
         /* Реализуй этот метод */
-        return 0;
+        return size;
     }
 
     @Override
