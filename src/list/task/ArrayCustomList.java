@@ -39,25 +39,38 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public T get(Integer index) {
         /* Реализуй этот метод */
-        return null;
+        return myArray[index];
     }
 
     @Override
     public CustomList<T> remove(Integer index) {
         /* Реализуй этот метод */
-        return null;
+        for(int i = index; i < size - 1; i++) {
+            myArray[i] = myArray[i + 1];
+        }
+            size--;
+            return this;
     }
 
     @Override
     public CustomList<T> removeAll() {
         /* Реализуй этот метод */
-        return null;
+        for(int i = 0; i < size; i++) {
+            myArray[i] = null;
+        }
+        size = 0;
+        return this;
     }
 
     @Override
     public CustomList<T> addAll(CustomList<T> newCustomList) {
         /* Реализуй этот метод */
-        return null;
+        T[] newArray = (T[]) new Object[myArray.length + newCustomList.size()];
+        myArray = newArray;
+        for (int i = (myArray.length - newCustomList.size()) + 1; i < myArray.length; i++) {
+            myArray[i] = newCustomList.get(i);
+        }
+        return this;
     }
 
     @Override
