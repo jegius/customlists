@@ -65,10 +65,11 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public CustomList<T> addAll(CustomList<T> newCustomList) {
         /* Реализуй этот метод */
-        T[] newArray = (T[]) new Object[myArray.length + newCustomList.size()];
-        myArray = newArray;
-        for (int i = (myArray.length - newCustomList.size()) + 1; i < myArray.length; i++) {
-            myArray[i] = newCustomList.get(i);
+        size = size + newCustomList.size();
+        T[] newArray = (T[]) new Object[size + myArray.length];
+        System.arraycopy(myArray, 0, newArray, 0, myArray.length);
+        for (int i = myArray.length; i < size + myArray.length; i++) {
+            newArray[i] = newCustomList.get(i - myArray.length);
         }
         return this;
     }
