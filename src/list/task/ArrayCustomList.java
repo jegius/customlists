@@ -5,10 +5,20 @@ import list.CustomList;
 import java.util.Iterator;
 
 public class ArrayCustomList<T> implements CustomList<T> {
+    private final int START_SIZE = 10;
+    private int size;
+    private T[] myArray = (T[]) new Object[START_SIZE];
+
     @Override
     public CustomList<T> add(T element) {
         /* Реализуй этот метод */
-        return null;
+        if (size == myArray.length) {
+            T[] newArray = (T[]) new Object[myArray.length * 2];
+            System.arraycopy(myArray, 0, newArray, 0, size);
+            myArray = newArray;
+        }
+        myArray[size++] = element;
+        return this;
     }
 
     @Override
@@ -43,7 +53,7 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public int size() {
         /* Реализуй этот метод */
-        return 0;
+        return size;
     }
 
     @Override
