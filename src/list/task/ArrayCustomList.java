@@ -83,6 +83,18 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public Iterator<T> iterator() {
         /* Реализуй этот метод */
-        return null;
+        Iterator<T> it = new Iterator<T>() {
+            private int currentIndex = 0;
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size && myArray[currentIndex] != null;
+            }
+            @Override
+            public T next() {
+                return myArray[currentIndex++];
+            }
+        };
+        return it;
+
     }
 }
