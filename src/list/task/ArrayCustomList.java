@@ -45,17 +45,17 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public CustomList<T> remove(Integer index) {
         /* Реализуй этот метод */
-        for(int i = index; i < size - 1; i++) {
+        for (int i = index; i < size - 1; i++) {
             myArray[i] = myArray[i + 1];
         }
-            size--;
-            return this;
+        size--;
+        return this;
     }
 
     @Override
     public CustomList<T> removeAll() {
         /* Реализуй этот метод */
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             myArray[i] = null;
         }
         size = 0;
@@ -71,7 +71,7 @@ public class ArrayCustomList<T> implements CustomList<T> {
         for (int i = myArray.length; i < size + myArray.length; i++) {
             newArray[i] = newCustomList.get(i - myArray.length);
         }
-        return this;
+        return newCustomList;
     }
 
     @Override
@@ -85,16 +85,17 @@ public class ArrayCustomList<T> implements CustomList<T> {
         /* Реализуй этот метод */
         Iterator<T> it = new Iterator<T>() {
             private int currentIndex = 0;
+
             @Override
             public boolean hasNext() {
                 return currentIndex < size && myArray[currentIndex] != null;
             }
+
             @Override
             public T next() {
                 return myArray[currentIndex++];
             }
         };
         return it;
-
     }
 }

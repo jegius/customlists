@@ -7,13 +7,13 @@ import java.util.Iterator;
 public class LinkedCustomList<T> implements CustomList<T> {
 
     private int size;
-    Node<T> first;
-    private Node head;
+    private Node<T> first;
+    private Node<T> head;
 
-    private Node<T> node(int index) {
+    private Node<T> getNodeByIndex(int index) {
         Node<T> node = first;
         for (int i = 0; i < index; i++) {
-            node = node.next;
+            node = node.getNext();
         }
         return node;
     }
@@ -21,16 +21,16 @@ public class LinkedCustomList<T> implements CustomList<T> {
     @Override
     public CustomList<T> add(Object element) {
         /* Реализуй этот метод */
-        Node node = new Node(element);
+        Node<T> node = new Node(element);
 
         if (this.head == null) {
             this.head = node;
         } else {
-            Node iterator = this.head;
-            while (iterator.next != null) {
-                iterator = iterator.next;
+            Node<T> previousNode = this.head;
+            while (previousNode.getNext() != null) {
+                previousNode = previousNode.getNext();
             }
-            iterator.next = node;
+            previousNode.setNext(node);
         }
         size++;
         return this;
@@ -41,8 +41,9 @@ public class LinkedCustomList<T> implements CustomList<T> {
         if (index == 0) {
             first = new Node<>(element, first);
         } else {
-            Node<T> prev = node(index - 1);
-            prev.next = new Node<>(element, prev.next);
+            Node<T> prev = getNodeByIndex(index - 1);
+            Node<T> getNextValue = new Node<>(element, prev.getNext());
+            prev.setNext(new Node<>(element, getNextValue));
         }
         size++;
         return this;
@@ -51,19 +52,22 @@ public class LinkedCustomList<T> implements CustomList<T> {
     @Override
     public T get(Integer index) {
         /* Реализуй этот метод */
-        return node(index).element;
+        return getNodeByIndex(index).getElement();
     }
 
     @Override
     public CustomList<T> remove(Integer index) {
         /* Реализуй этот метод */
+        if (index >= size || (index < 0)) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
+        }
         Node<T> node = first;
         if (index == 0) {
-            first = first.next;
+            first = first.getNext();
         } else {
-            Node<T> prev = node(index - 1);
-            node = prev.next;
-            prev.next = node.next;
+            Node<T> prev = getNodeByIndex(index - 1);
+            node = prev.getNext();
+            prev.setNext(node.getNext());
         }
         size--;
         return this;
@@ -72,20 +76,22 @@ public class LinkedCustomList<T> implements CustomList<T> {
     @Override
     public CustomList<T> removeAll() {
         /* Реализуй этот метод */
-        size = 0;
-        first = null;
+        Node<T> getNode = null;
+        this.size = 0;
         return this;
     }
 
     @Override
     public CustomList<T> addAll(CustomList<T> newCustomList) {
         /* Реализуй этот метод */
-        int index = size;
-        for (T o : newCustomList) {
-            add(o, index + 1);
-            index++;
+        //size = size + newCustomList.size();
+        CustomList<T> newList = (CustomList<T>) new Object();
+        int resultSize = size + newList.size();
+        for (int index = size; index < resultSize; index++) {
+            newList.add(newCustomList.get(index), size + 1);
+            size++;
         }
-        return this;
+        return newList;
     }
 
     @Override
@@ -97,17 +103,19 @@ public class LinkedCustomList<T> implements CustomList<T> {
     @Override
     public Iterator<T> iterator() {
         /* Реализуй этот метод */
-        Iterator<T> it = new Iterator<T>() {
+        Iterator<T> iterator = new Iterator<>() {
+            private int currentIndex = 0;
+
             @Override
             public boolean hasNext() {
-                return false;
+                return currentIndex < size && getNodeByIndex(currentIndex) != null;
             }
 
             @Override
             public T next() {
-                return null;
+                return (T) getNodeByIndex(currentIndex++);
             }
         };
-        return it;
+        return iterator;
     }
 }
