@@ -23,55 +23,31 @@ public class ArrayCustomList<T> implements CustomList<T> {
 
     @Override
     public CustomList<T> add(T element, int index) {
-        if (size == myArray.length) {
-            T[] newArray = (T[]) new Object[myArray.length * 2];
-            System.arraycopy(myArray, 0, newArray, 0, size);
-            myArray = newArray;
-        }
-        for (int i = size - 1; i >= index; i--) {
-            myArray[i + 1] = myArray[i];
-        }
-        myArray[index] = element;
-        size++;
-        return this;
+        return null;
     }
 
     @Override
     public T get(Integer index) {
         /* Реализуй этот метод */
-        return myArray[index];
+        return null;
     }
 
     @Override
     public CustomList<T> remove(Integer index) {
         /* Реализуй этот метод */
-        for (int i = index; i < size - 1; i++) {
-            myArray[i] = myArray[i + 1];
-        }
-        size--;
-        return this;
+        return null;
     }
 
     @Override
     public CustomList<T> removeAll() {
         /* Реализуй этот метод */
-        for (int i = 0; i < size; i++) {
-            myArray[i] = null;
-        }
-        size = 0;
-        return this;
+        return null;
     }
 
     @Override
     public CustomList<T> addAll(CustomList<T> newCustomList) {
         /* Реализуй этот метод */
-        size = size + newCustomList.size();
-        T[] newArray = (T[]) new Object[size + myArray.length];
-        System.arraycopy(myArray, 0, newArray, 0, myArray.length);
-        for (int i = myArray.length; i < size + myArray.length; i++) {
-            newArray[i] = newCustomList.get(i - myArray.length);
-        }
-        return newCustomList;
+        return null;
     }
 
     @Override
@@ -83,19 +59,6 @@ public class ArrayCustomList<T> implements CustomList<T> {
     @Override
     public Iterator<T> iterator() {
         /* Реализуй этот метод */
-        Iterator<T> it = new Iterator<T>() {
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < size && myArray[currentIndex] != null;
-            }
-
-            @Override
-            public T next() {
-                return myArray[currentIndex++];
-            }
-        };
-        return it;
+        return null;
     }
 }
