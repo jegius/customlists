@@ -82,7 +82,7 @@ public class LinkedCustomList<T> implements CustomList<T> {
         /* Реализуй этот метод */
         int index = size;
         for (T o : newCustomList) {
-            add(o, index);
+            add(o, index + 1);
             index++;
         }
         return this;
@@ -97,6 +97,17 @@ public class LinkedCustomList<T> implements CustomList<T> {
     @Override
     public Iterator<T> iterator() {
         /* Реализуй этот метод */
-        return null;
+        Iterator<T> it = new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public T next() {
+                return null;
+            }
+        };
+        return it;
     }
 }
