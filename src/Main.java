@@ -15,7 +15,6 @@ public class Main {
 
         CustomList<Integer> testArrayList = new ArrayCustomList<>();
         exerciseRunner.checkTask(testArrayList, 2, 5);
- // ebaniy rot etogo kazino
 
     }
 }
