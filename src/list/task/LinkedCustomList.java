@@ -93,7 +93,7 @@ public class LinkedCustomList<T> implements CustomList<T> {
         }
         return newList;
     }
-
+//
     @Override
     public int size() {
         /* Реализуй этот метод */
